@@ -14,7 +14,7 @@ export class TestAwsPipelinesStack extends cdk.Stack {
           'gustavoramosb/test-aws-pipelines', 
           'main', 
           {
-            authentication: cdk.SecretValue.unsafePlainText(atob('Z2hwX2VuTVd3TUszQWlmOXpHZ09yZ3JteFNBeHgzN0cydTBST2JGbA=='))
+            authentication: cdk.SecretValue.unsafePlainText(atob('Z2hwX2VuTVd3TUszQWlmOXpHZ09yZ3JteFNBeHgzN0cydTBST2JGbA==') )
           }
         ),
         commands: ['npm ci', 'npm run build', 'npx cdk synth']
