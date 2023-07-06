@@ -7,7 +7,6 @@ export class TestAwsPipelinesStack extends cdk.Stack {
     super(scope, id, props);
 
     // The code that defines your stack goes here
-    //const secretValue = cdk.SecretValue.unsafePlainText('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');
     const pipeline = new CodePipeline(this, 'Pipeline', {
       pipelineName: 'TestAWSPipeline',
       synth: new ShellStep('Synth', {
@@ -15,7 +14,7 @@ export class TestAwsPipelinesStack extends cdk.Stack {
           'gustavoramosb/test-aws-pipelines', 
           'main', 
           {
-            authentication: cdk.SecretValue.unsafePlainText('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')
+            authentication: cdk.SecretValue.unsafePlainText('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')
           }
         ),
         commands: ['npm ci', 'npm run build', 'npx cdk synth']
