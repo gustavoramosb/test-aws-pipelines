@@ -1,16 +1,25 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import { CodePipeline, CodePipelineSource, ShellStep } from 'aws-cdk-lib/pipelines';
 
 export class TestAwsPipelinesStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     // The code that defines your stack goes here
-
-    // example resource
-    // const queue = new sqs.Queue(this, 'TestAwsPipelinesQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    const secretValue = cdk.SecretValue.unsafePlainText('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');
+    const pipeline = new CodePipeline(this, 'Pipeline', {
+      pipelineName: 'TestAWSPipeline',
+      synth: new ShellStep('Synth', {
+        input: CodePipelineSource.gitHub(
+          'gustavoramosb/test-aws-pipelines', 
+          'main', 
+          {
+            authentication: secretValue
+          }
+        ),
+        commands: ['npm ci', 'npm run build', 'npx cdk synth']
+      })
+    });
   }
 }
